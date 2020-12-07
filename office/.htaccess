@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ /entry_point.php
+RewriteRule ^main /index.html
+RewriteRule ^apark /index.html
+RewriteRule ^about /index.html
+RewriteRule ^firms /index.html
+RewriteRule ^profile /index.html
+RewriteRule ^settings /index.html
+RewriteRule ^view /index.html
+RewriteRule ^exit /index.html
