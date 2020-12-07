@@ -1,0 +1,233 @@
+﻿API Otto
+Backend branch
+Методи:
+	- POST - Створення записів
+	- GET - Виведення даних
+	- PUT - Зміна даних
+	- DELETE - Видалення даних
+
+/~=~=~=~ EMAIL ~=~=~=~\
+
+	url: 'otis.co.ua/vendor/config/email.php'
+	method: POST
+	data:{
+
+		department - Client firm name
+		sender - Client email address
+		phone - Client phone number
+		address - Client address
+		web - Client web
+
+		firm_name - Car firm name
+		recipient - Car firm email address
+		registration_number - Car registration number
+		car_mark - Car mark
+		car_model - Car model
+
+		sertification_date - Last sertification date
+		passing_date - Last technical chekc pass date
+	}
+	return:
+	{
+		success: 'Повідомлення успішно надіслано'
+		error: 'Помилка при відправленні'
+	}
+
+/~=~=~=~ CARS ~=~=~=~\
+
+
+	◘ Виведення всіх машин авторизованого користувача
+	{
+		url: 'api/cars?api_key={USER API KEY}&page={PAGE NUMBER}'
+		method: GET
+		return: Дані про машини в форматі JSON
+	}
+
+	◘ Кількість всіх машин певного користувача
+	{
+		url: 'api/cars?api_key={USER API KEY}&count=true'
+		method: GET
+		return: Кількість машин в форматі JSON
+	}
+
+	◘ Виведення окремої машини за реєстраційним номером
+	{
+		url: 'api/cars/{registration_number}?api_key={USER API KEY}'
+		method: GET
+		return: Дані про машину в форматі JSON
+	}
+
+	◘ Створення машини
+	{
+		url: 'api/cars?api_key={USER API KEY}'
+		method: POST
+		data: {
+			id_model(or brand, model, type), 
+			registration_number, 
+			id_firm, 
+			vin_code, 
+			date_of_passing, 
+			next_passing_date, 
+			next_sertification_date, 
+			date_of_receiving_sertificate, 
+			availability_sertificate
+		}
+		return:
+		{
+			success: 'Машина створена'
+			error: 'Сталась помилка, можливо даний реєстраційний номер або VIN-код вже існує'
+		}
+	}
+
+	◘ Зміна даних машини
+	{
+		url: 'api/cars?api_key={USER API KEY}'
+		method: PUT
+		data: {
+			id_firm,
+			prev_rn,
+			next_rn, 
+			vin_code, 
+			id_model(or brand, model, type), 
+			next_passing_date, 
+			next_sertification_date,
+			date_of_passing,
+			date_of_receiving_sertificate,
+		}
+		return:
+		{
+			success: 'Дані змінені'
+			error: 'Сталась помилка, можливо даний реєстраційний номер або VIN-код вже існує'
+		}
+	}
+
+	◘ Видалення машини
+	{
+		url: 'api/cars?api_key={USER API KEY}'
+		method: DELETE
+		data: registration_number
+		return: 'Машина видалена'
+	}
+
+/~=~=~=~ FIRMS ~=~=~=~\
+
+	◘ Виведення всіх фірм авторизованого користувача
+	{
+		url: 'api/firms?api_key={USER API KEY}'
+		method: GET
+		return: Дані про фірми в форматі JSON
+	}
+
+	◘ Виведення окремої фірми за ЄДРПОУ
+	{
+		url: 'api/firms/{ЄДРПОУ}?api_key={USER API KEY}'
+		method: GET
+		return: Дані про фірму в форматі JSON
+	}
+
+	◘ Створення фірми
+	{
+		url: 'api/firms?api_key={USER API KEY}'
+		method: POST
+		data: {
+			id_firm,
+			name,
+			telephone,
+			email,
+		}
+		return:
+		{
+			success: 'Фірма створена'
+			error: 'Сталась помилка, можливо даний ЄДРПОУ вже існує'
+		}
+	}
+
+	◘ Зміна даних машини
+	{
+		url: 'api/firms?api_key={USER API KEY}'
+		method: PUT
+		data: {
+			id_firm_prev,
+			id_firm_next,
+			name,
+			telephone,
+			email,
+		}
+		return:
+		{
+			success: 'Дані змінені'
+			error: 'Сталась помилка, можливо даний ЄДРПОУ вже існує'
+		}
+	}
+
+/~=~=~=~ USERS ~=~=~=~\
+
+◘ Виведення ключа API
+
+	{
+		url: 'api/users/apikeys'
+		method: GET
+		data: {
+		}
+		return:
+		{
+			success: user api_key
+		}
+	}
+
+◘ Зміна даних користувача
+
+	{
+		url: 'api/users?api_key={USER API KEY}'
+		method: PUT
+		data: {
+			name,
+            surname,
+            birthday,
+            phone,
+            email,
+            department,
+            street,
+            web_site,
+		}
+		return:
+		{
+			success: 'Інформацію про користувача змінено'
+		}
+	}
+
+◘ Зміна даних SMS
+
+	{
+		url: 'api/users/sms?api_key={USER API KEY}'
+		method: PUT
+		data: {
+			sms_login,
+			sms_pass,
+			sms_api_key, 
+			sms_alpha_name, 
+			sms_text_template
+		}
+		return:
+		{
+			success: 'Налаштування SMS-розсилки змінено'
+			error: MySQL Error
+		}
+	}
+
+◘ Відправка SMS
+	{
+		url: 'vendor/dispatch/sms.php'
+		method: POST
+		data: {
+			api_key,
+			alpha_name,
+			phone,
+			registration_number,
+			template
+		}
+		return:
+		{
+			success: Інформація про повідомлення
+		}
+	}
