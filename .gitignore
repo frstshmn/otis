@@ -6,3 +6,5 @@ demo.trans
 trans
 www
 view.php
+database.php
+email.php
