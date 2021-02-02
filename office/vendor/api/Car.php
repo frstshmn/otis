@@ -77,13 +77,13 @@
 
 	
 
-		public function update($prev_rn, $next_rn, $vin_code, $model_id, $next_passing_date, $next_sertification_date = NULL, $passing_date, $sertification_date){
+		public function update($id_firm, $prev_rn, $next_rn, $vin_code, $model_id, $next_passing_date, $next_sertification_date = NULL, $passing_date, $sertification_date){
 			if(!$_GET['api_key']){
 				return "Please, use your api key";
 			}
 			$u_api = $_GET['api_key'];
 			$mysql = (new Database())->connect();
-			if($car = $mysql->query("UPDATE cars SET registration_number = '".$next_rn."', vin_code = '".$vin_code."', id_model = '".$model_id."', date_of_passing = '".$passing_date."', next_passing_date = '".$next_passing_date."', date_of_receiving_sertificate = '".$sertification_date."', next_sertification_date = '".$next_sertification_date."' WHERE registration_number = '".$prev_rn."'", MYSQLI_USE_RESULT))
+			if($car = $mysql->query("UPDATE cars SET id_firm = '".$id_firm."', registration_number = '".$next_rn."', vin_code = '".$vin_code."', id_model = '".$model_id."', date_of_passing = '".$passing_date."', next_passing_date = '".$next_passing_date."', date_of_receiving_sertificate = '".$sertification_date."', next_sertification_date = '".$next_sertification_date."' WHERE registration_number = '".$prev_rn."'", MYSQLI_USE_RESULT))
 			{
 				return 200;
 			}

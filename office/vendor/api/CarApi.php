@@ -87,7 +87,7 @@ class CarApi extends Api
             $model_id = $put_vars['id_model'];
         }
 
-        //$id_firm = $put_vars['id_firm']);
+        $id_firm = $put_vars['id_firm'];
         $prev_rn = strtoupper($put_vars['prev_rn']);
         $next_rn = strtoupper($put_vars['next_rn']);
         $vin_code = strtoupper($put_vars['vin_code']);
@@ -95,7 +95,7 @@ class CarApi extends Api
         $next_sertification_date = $put_vars['next_sertification_date'];
         $passing_date = $put_vars['date_of_passing'];
         $sertification_date = $put_vars['date_of_receiving_sertificate'];
-        $car = Car::update($prev_rn, $next_rn, $vin_code, $model_id, $next_passing_date, $next_sertification_date, $passing_date, $sertification_date);
+        $car = Car::update($id_firm, $prev_rn, $next_rn, $vin_code, $model_id, $next_passing_date, $next_sertification_date, $passing_date, $sertification_date);
         if ($car == 200) {
           return $this->response('Інформація змінена', 200);
         } else {
